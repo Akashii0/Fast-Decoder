@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, BackgroundTasks, HTTPException, Depends
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -6,9 +6,8 @@ from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 
-templates = Jinja2Templates(directory='templates')
+templates = Jinja2Templates(directory="app/templates")
 
-@app.get('/', response_class=HTMLResponse)
+@app.get('/index', response_class=HTMLResponse)
 def index(request: Request):
-    return templates.TemplateResponse("index.html", {"requests": request})
-
+    return templates.TemplateResponse("index.html", {"request": request})
